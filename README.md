@@ -412,7 +412,8 @@ docker container logs -f b97
 
 docker system df
 
-**Troubleshooting for Docker projects**
+Troubleshooting for Docker projects
+==================================================================================================================================
 
 
 a) Add below property in application.properties of api-gateway, currency-converions-service and currency-exchange-service projects.
@@ -459,6 +460,7 @@ docker-compose --version
 docker-compose up
 
 ======================================================================================================================================================
+
 Kubernetes:
 
 https://cloud.google.com/
