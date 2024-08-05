@@ -413,12 +413,21 @@ docker container logs -f b97
 docker system df
 
 **Troubleshooting for Docker projects**
+
+
 a) Add below property in application.properties of api-gateway, currency-converions-service and currency-exchange-service projects.
+
    eureka.instance.hostname=localhost
+
+   
 b) Docker engine change:
-   Pinning the DNS worked for me. I'm using Docker Desktop for Windows. I've set the DNS through the UI, by going to "settings -> Docker Engine" and adding DNS list to the Docker daemon file           
+   Pinning the DNS worked for me. I'm using Docker Desktop for Windows. I've set the DNS through the UI, by going to "settings -> Docker Engine" and adding DNS list to the Docker daemon file
+   
     "dns" : [ "1.1.1.1" , "8.8.8.8" ]
+
+    
 c) Add BP_JVM_VERSION in pom.xml of currency-exchange-service, naming-server, currency-converions-service and api-gateway projects.
+
                         <plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
