@@ -411,7 +411,44 @@ b9773237096534f1a385f3f09ab5b1dbd4c21426d24e1796274fec50591a23d0
 docker container logs -f b97
 
 docker system df
-********************************************************************************************1234
+
+**Troubleshooting for Docker projects**
+a) Add below property in application.properties of api-gateway, currency-converions-service and currency-exchange-service projects.
+   eureka.instance.hostname=localhost
+b) Docker engine change:
+   Pinning the DNS worked for me. I'm using Docker Desktop for Windows. I've set the DNS through the UI, by going to "settings -> Docker Engine" and adding DNS list to the Docker daemon file           
+    "dns" : [ "1.1.1.1" , "8.8.8.8" ]
+c) Add BP_JVM_VERSION in pom.xml of currency-exchange-service, naming-server, currency-converions-service and api-gateway projects.
+                        <plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>
+							in28min/mmv3-${project.artifactId}:${project.version}
+						</name>
+						<env>
+                                                        <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
+                                                </env>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+				</configuration>
+			</plugin>
+
+
+
+
+Run as=> Maven build=> spring-boot:build-image -DskipTests
+After creating image
+docker run -p 8000:8000 <Successfully built image>
+docker run -p 8000:8000 in28min/mmv3-currency-exchange-service:0.0.1-SNAPSHOT
+
+Run in browser: http://localhost:8000/currency-exchange/from/USD/to/INR
+
+docker-compose --version
+
+docker-compose up
+
 ======================================================================================================================================================
 Kubernetes:
 
